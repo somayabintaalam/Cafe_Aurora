@@ -1,0 +1,119 @@
+<!-- order_summary.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Order Summary</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: brown;
+            text-align: center;
+            padding: 20px;
+            background-color: #f8f6f6;
+            border-bottom: 2px solid #ccc;
+            margin: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 20px;
+            margin: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(17, 16, 16, 0.1);
+        }
+
+        /* Centered button container */
+        .center-button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Button styling */
+        .center-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: rgb(222, 84, 84);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Add to Cart button styling */
+        .add-to-cart-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #db3434;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="font-family: comic sans MS, cursive;">Order Summary</h1>
+    <ul id="ordered-items"></ul>
+
+    <!-- Centered button container -->
+    <div class="center-button-container">
+        <button class="center-button" onclick="goBack()">Menu</button>
+        <button class="add-to-cart-button" onclick="addToCart()">Add to Cart</button>
+    </div>
+
+    <script>
+        // Retrieve ordered items from localStorage
+        const orderedItems = JSON.parse(localStorage.getItem('orderedItems')) || [];
+
+        // Display ordered items in the list
+        const orderedItemsList = document.getElementById('ordered-items');
+        orderedItems.forEach(order => {
+            const listItem = document.createElement('li');
+
+            // Parse the order details (itemName and flavor) from the JSON string
+            const orderDetails = JSON.parse(order);
+
+            // Extract item name and flavor from the order
+            const itemName = orderDetails.itemName;
+            const flavor = orderDetails.flavor;
+
+            listItem.textContent = `${flavor} ${itemName}`;
+            orderedItemsList.appendChild(listItem);
+        });
+
+        // Clear ordered items from localStorage on page refresh
+        window.onbeforeunload = function () {
+            localStorage.removeItem('orderedItems');
+        };
+
+        // Go back to the main menu page
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // Add the ordered items to the cart (You can customize this function based on your cart implementation)
+        function addToCart() {
+            // You can implement the logic to add the ordered items to the cart here
+            alert('Items added to Cart!');
+        }
+    </script>
+</body>
+
+</html>
